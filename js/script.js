@@ -1,9 +1,5 @@
 // MyShip hull: 20 firePower: 5 accuracy: 0.7
 //Prompt for retreat
-const readline = require("readline").createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
 
  const myShip = {
     hull: 20,
@@ -89,7 +85,6 @@ const readline = require("readline").createInterface({
             enemyShipsLeft -= 1;
             console.log(`You have defeated an enemy ship. There are ${enemyShipsLeft} enemy ships left to defeat`)
             myShip.retreat();
-            readline.close();
             i++;
          } else {
             currentEnemy.attack();
