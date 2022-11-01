@@ -1,0 +1,25 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-image: url(../images/spacebg.jpg);
+    background-position: center;
+    background-size: cover;
+    height: 100%;
+}
+
+.enemies {
+    height: 50vh;
+    text-align: center;
+}
+
+.my-ship{
+    height: 50vh;
+    text-align: center;
+}
+
+.hide {
+    display: none;
+}

@@ -1,4 +1,10 @@
 // MyShip hull: 20 firePower: 5 accuracy: 0.7
+//Prompt for retreat
+const readline = require("readline").createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
+
  const myShip = {
     hull: 20,
     fp: 5,
@@ -11,7 +17,7 @@
             return true;
          }
     },
-    attack: function(enemy, battling){
+    attack: function(enemy){
       if(Math.random() < myShip.accuracy){
          enemy.hull -= this.fp;
          console.log('You have hit Alien Spaceship their health is now', enemy.hull);
@@ -20,15 +26,19 @@
       }
     },
     retreat: function(i){
-         console.log("Would you like to retreat? Your current hull is", myShip.hull);
+         console.log(`Would you like to retreat? You're current hull is ${myShip.hull}`)
          if(myShip.hull < 5){
             myShip.hull = 0;
             console.log("You have retreated Aliens have taken over");
             return true;
          } else{
+
             return false;
          }
     },
+    heal: function(){
+      this.hull += Math.ceil(Math.random() * 6);
+    }
  }
 
 // Class to make Alien Ships random Hull firepower and accuracy
@@ -42,7 +52,6 @@
          if (this.hull <= 0) {
            return false;
          } else {
-            console.log('Enemies health is now', this.hull)
            return true;
          }
     }
@@ -70,14 +79,17 @@
       const enemies = this.makeEnemies(Math.round(Math.random() * (6 - 3)) + 3);
       let i = 0;
       let currentEnemy = enemies[i];
+      let enemyShipsLeft = enemies.length;
       console.log('Enemy Ships have arrived', enemies);
       console.log('Your Ship can handle them', myShip);
       while(myShip.isAlive() && i < enemies.length -1){
          myShip.attack(currentEnemy);
          if(currentEnemy.isAlive() === false){
             currentEnemy = enemies[i+1];
-            console.log('You have defeated an enemy ship')
+            enemyShipsLeft -= 1;
+            console.log(`You have defeated an enemy ship. There are ${enemyShipsLeft} enemy ships left to defeat`)
             myShip.retreat();
+            readline.close();
             i++;
          } else {
             currentEnemy.attack();
